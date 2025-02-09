@@ -11,8 +11,8 @@ const Notes = () => {
     <section>
       <header className="border-b-2 border-gray-500 shadow-lg">
         <div className="flex items-center justify-between py-3 px-20">
-          <Link to={"/"} className="text-2xl font-semibold">
-            My Notes
+          <Link to={"/"} className="text-4xl font-bold font-mono relative">
+            Note <span className="absolute bottom-[13px] -right-3 text-2xl text-red-500 ">+</span>
           </Link>
 
           <div className="w-sm flex items-center relative ">
