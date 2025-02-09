@@ -6,7 +6,7 @@ import EditNote from "./pages/EditNote";
 
 const App = () => {
   return (
-    <div className="list-none font-[Roboto]">
+    <div className="font-[Roboto] bg-slate-500 min-h-screen ">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Notes />} />

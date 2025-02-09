@@ -1,17 +1,25 @@
-import React from 'react'
-import { notesType } from '../types'
+import React from "react";
+import { notesType } from "../types";
+import { Link } from "react-router-dom";
 
 interface notePropType {
-  note: notesType
+  note: notesType;
 }
-const NoteItem = ({note}) => {
+const NoteItem = ({ note }: notePropType) => {
   return (
-    <div>
-    <h3>This is {note}</h3>
-    <p>this is boduybjadsbjkfasdvbds sdbfjkdsv bvsdjjds jdks </p>
-    <small>Feb 08, 2025</small>
-  </div>
-  )
-}
+    <Link
+      to={`/edit-note/${note.id}`}
+      className="bg-zinc-700/40 flex flex-col gap-4 cursor-pointer transition-all duration-150 text-white hover:opacity-85 "
+    >
+      <h3 className="text-xl font-semibold ">
+        {note.title.length > 50
+          ? note.title.substring(0, 50) + "..."
+          : note.title}
+      </h3>
+      <p>{note.details.length>200 ? (note.details.substring(0, 200)) + "..." : note.details }</p>
+      <p className="text-xs opacity-85 ">{note.date}</p>
+    </Link>
+  );
+};
 
-export default NoteItem
+export default NoteItem;
