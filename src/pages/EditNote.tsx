@@ -10,15 +10,15 @@ const EditNote = () => {
       <header className="flex justify-between items-center py-4 px-4">
         <Link
           to={"/"}
-          className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95"
+          className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150 hover"
         >
           <MdArrowBackIos size={28} />{" "}
         </Link>
-        <button className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95">
+        <button className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150">
           <IoMdCheckmark size={32} />
         </button>
 
-        <button className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95">
+        <button className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150">
         <MdDeleteOutline size={28} />
         </button>
       </header>

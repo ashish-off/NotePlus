@@ -9,7 +9,7 @@ const NoteItem = ({ note }: notePropType) => {
   return (
     <Link
       to={`/edit-note/${note.id}`}
-      className="bg-zinc-700/40 flex flex-col gap-4 cursor-pointer transition-all duration-150 text-white hover:opacity-85 "
+      className="bg-zinc-700/40 p-4 md:p-6 lg:p-8 flex flex-col gap-4 cursor-pointer transition-all duration-150 text-white hover:opacity-85 "
     >
       <h3 className="text-xl font-semibold ">
         {note.title.length > 50
