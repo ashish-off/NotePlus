@@ -1,6 +1,10 @@
 export interface notesType {
-  id: number;
+  id: string;
   title: string;
   details: string;
   date: string;
+}
+
+export interface noteState {
+  notes: notesType[];
 }
