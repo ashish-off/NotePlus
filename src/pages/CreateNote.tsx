@@ -1,9 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdArrowBackIos } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+import { addNote } from "../features/noteSlice";
 
 const CreateNote = () => {
+  const [title, setTitle] = useState <string>("")
+  const [details, setDetails] = useState <string>("");
+
+  const nevigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const formattedDate = new Date().toLocaleString('en-US', { 
+    month: 'short',   // "Feb"
+    day: '2-digit',   // "11"
+    year: 'numeric',  // "2025"
+    hour: '2-digit',  // "1"
+    minute: '2-digit',// "53"
+    hour12: true      // AM/PM format
+  }).replace(',', ''); // Remove extra comma
+  
+
+  const handleSubmit = (e : React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement> ): void => {
+    e.preventDefault();
+    
+    if(title && details){
+      const note = {
+        id: uuidv4(),
+        title,
+        details,
+        date: formattedDate,
+      }
+      dispatch(addNote(note));
+      console.log(note);
+
+      nevigate("/")
+      
+    }
+
+  }
+
   return (
     <section className="w-full md:w-md mx-auto py-4 px-4 md:px-0">
       <main className="bg-gray-900/20 my-8 shadow-2xl rounded-4xl">
@@ -14,20 +52,25 @@ const CreateNote = () => {
           >
             <MdArrowBackIos size={28} />{" "}
           </Link>
-          <button className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150">
+
+          <button onClick={handleSubmit} className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150">
             <IoMdCheckmark size={32} />
           </button>
         </header>
 
-        <form className="flex flex-col gap-4 mt-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-4">
           <input
             type="text"
             placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             autoFocus
             className="w-full px-4 py-2 rounded-xl text-3xl text-white outline-none"
           />
           <textarea
             rows={16}
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
             className="w-full px-4 py-2 rounded-xl text-lg text-white outline-none"
             placeholder="Write note details"
           ></textarea>

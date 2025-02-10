@@ -1,11 +1,16 @@
-import React from "react";
+import React, { FC, useState } from "react";
 import { IoMdSearch } from "react-icons/io";
-import dummyNotes from "../data/dummyNotes";
 import NoteItem from "../components/NoteItem";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
+import { noteState } from "../types";
+import { useSelector } from "react-redux";
 
-const Notes = () => {
+const Notes  = () => {
+
+  const notes = useSelector((state: {noteStore : noteState}) => state.noteStore.notes);
+
+
   return (
     <section>
       <header className="border-b-2 border-gray-500 shadow-lg">
@@ -38,7 +43,7 @@ const Notes = () => {
       </header>
 
       <div className="px-20 grid grid-cols-2 md:grid-cols-3 gap-4 ">
-        {dummyNotes.map((note) => (
+        {notes.map((note) => (
           <NoteItem key={note.id} note={note} />
         ))}
       </div>
