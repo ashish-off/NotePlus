@@ -21,12 +21,12 @@ const Notes = () => {
             <div className="w-fit flex items-center relative ">
               <input
                 type="text"
-                className="outline-none text-xl shadow-lg shadow-gray-500/30  border-none bg-gray-600/25 rounded-xl py-2 px-6 w-[100px] sm:w-[300px] md:w-full focus:shadow-sm focus:shadow-gray-800/20 transition-all"
+                className="outline-none text-base md:text-xl  shadow-lg shadow-gray-500/30  border-none bg-gray-600/25 rounded-l-xl py-2 px-6 w-[100px] sm:w-[300px] md:w-full focus:shadow-sm focus:shadow-gray-800/20 transition-all"
                 autoFocus
                 placeholder="search notes..."
               />
 
-              <button className=" cursor-pointer  active:scale-90">
+              <button className=" shadow-lg shadow-gray-500/30  border-none bg-gray-600/25 rounded-r-xl py-[6px] md:py-2 px-2 cursor-pointer transition-all  active:shadow-sm active:shadow-gray-800/20">
                 <IoMdSearch size={28} />
               </button>
             </div>
