@@ -22,7 +22,6 @@ const Notes = () => {
               <input
                 type="text"
                 className="outline-none text-base md:text-xl  shadow-lg shadow-gray-500/30  border-none bg-gray-600/25 rounded-l-xl py-2 px-6 w-[100px] sm:w-[300px] md:w-full focus:shadow-sm focus:shadow-gray-800/20 transition-all"
-                autoFocus
                 placeholder="search notes..."
               />
 
