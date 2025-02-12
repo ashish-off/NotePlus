@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { addNote } from "../features/noteSlice";
+import formattedDate from "../hooks/UseformattedDate";
 
 const CreateNote = () => {
   const [title, setTitle] = useState <string>("")
@@ -13,15 +14,6 @@ const CreateNote = () => {
   const nevigate = useNavigate()
   const dispatch = useDispatch()
 
-  const formattedDate = new Date().toLocaleString('en-US', { 
-    month: 'short',   // "Feb"
-    day: '2-digit',   // "11"
-    year: 'numeric',  // "2025"
-    hour: '2-digit',  // "1"
-    minute: '2-digit',// "53"
-    hour12: true      // AM/PM format
-  }).replace(',', ''); // Remove extra comma
-  
 
   const handleSubmit = (e : React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement> ): void => {
     e.preventDefault();
