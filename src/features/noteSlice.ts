@@ -25,6 +25,7 @@ const noteSlice = createSlice({
       action: PayloadAction<{ id?: string; editedNote: notesType }>
     ) => {
       const { id, editedNote } = action.payload;
+      
       const filteredNotes = state.notes.filter((note) => note.id !== id);
       state.notes = filteredNotes;  // removes the note to be edited
 
@@ -34,10 +35,8 @@ const noteSlice = createSlice({
     // takes a id
     deleteNote: (state, action: PayloadAction<{ id?: string }>) => {
       const { id } = action.payload;
-      const index = state.notes.findIndex((note) => note.id === id);
-      if (index !== -1) {
-        state.notes.splice(index, 1);
-      }
+      const allNotes = state.notes.filter((note) => note.id!== id);
+      state.notes = allNotes; 
     },
   },
 });

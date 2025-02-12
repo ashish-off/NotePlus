@@ -38,6 +38,11 @@ const EditNote = () => {
     }
   };
 
+  const handleDelete = () => {
+    dispatch(deleteNote({id}))
+    nevigate("/")
+  }
+
   return (
     <section className="w-full md:w-md mx-auto py-4 px-4 md:px-0">
       <main className="bg-gray-900/20 my-8 shadow-2xl rounded-4xl">
@@ -55,7 +60,7 @@ const EditNote = () => {
             <IoMdCheckmark size={32} />
           </button>
 
-          <button className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150">
+          <button onClick={handleDelete} className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150">
             <MdDeleteOutline size={28} />
           </button>
         </header>
