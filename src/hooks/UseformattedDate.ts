@@ -1,4 +1,4 @@
-const formattedDate = new Date().toLocaleString('en-US', { 
+const formattedDate : string = new Date().toLocaleString('en-US', { 
   month: 'short',   // "Feb"
   day: '2-digit',   // "11"
   year: 'numeric',  // "2025"

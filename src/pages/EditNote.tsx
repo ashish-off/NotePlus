@@ -1,30 +1,43 @@
 import React, { useState } from "react";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdArrowBackIos, MdDeleteOutline } from "react-icons/md";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { noteState } from "../types";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { noteState, notesType } from "../types";
 import formattedDate from "../hooks/UseformattedDate";
+import { deleteNote, editNote } from "../features/noteSlice";
 
 const EditNote = () => {
-  const {id} = useParams();
-  const notes = useSelector((state : {noteStore : noteState}) => state.noteStore.notes)
+  const { id } = useParams();
+  const notes = useSelector(
+    (state: { noteStore: noteState }) => state.noteStore.notes
+  );
+  const dispatch = useDispatch();
+  const nevigate = useNavigate()
 
   const note = notes.find((item) => item.id === id);
-  const [title, setTitle] = useState <string | undefined> (note?.title);
-  const [details, setdetails] = useState<string | undefined>(note?.details)
-  
-  const handleForm = (e) => {
+  const [title, setTitle] = useState<string | undefined>(note?.title);
+  const [details, setdetails] = useState<string | undefined>(note?.details);
+
+  const handleForm = (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
 
-    if(title && details){
-      const editedNote = {...note, title, details, date: formattedDate}
-      console.log(editedNote);
-      
+    if (title && details) {
+      const editedNote = {
+        ...note,
+        title,
+        details,
+        date: formattedDate,
+      };
+
+      // console.log(editedNote);
+      dispatch(editNote({id, editedNote}))
+      nevigate("/")
     }
-    
-  }  
-  
+  };
+
   return (
     <section className="w-full md:w-md mx-auto py-4 px-4 md:px-0">
       <main className="bg-gray-900/20 my-8 shadow-2xl rounded-4xl">
@@ -35,7 +48,10 @@ const EditNote = () => {
           >
             <MdArrowBackIos size={28} />{" "}
           </Link>
-          <button onClick={handleForm} className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150">
+          <button
+            onClick={handleForm}
+            className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150"
+          >
             <IoMdCheckmark size={32} />
           </button>
 

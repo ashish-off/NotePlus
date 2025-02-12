@@ -26,7 +26,7 @@ const CreateNote = () => {
         date: formattedDate,
       }
       dispatch(addNote(note));
-      console.log(note);
+      // console.log(note);
 
       nevigate("/")
       
