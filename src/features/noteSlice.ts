@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { noteState, notesType } from "../types";
-// import dummyNotes from "../data/dummyNotes"
 
 const loadFromLocalStorage = (): notesType[] => {
   const notes = localStorage.getItem("notes");
@@ -26,10 +25,6 @@ const noteSlice = createSlice({
       action: PayloadAction<{ id?: string; editedNote: notesType }>
     ) => {
       const { id, editedNote } = action.payload;
-      // const index = state.notes.findIndex((note) => note.id === id);
-      // if (index !== -1) {
-      //   state.notes[index] = editedNote;
-      // }
       const filteredNotes = state.notes.filter((note) => note.id !== id);
       state.notes = filteredNotes;  // removes the note to be edited
 
