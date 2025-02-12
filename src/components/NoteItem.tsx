@@ -16,7 +16,7 @@ const NoteItem = ({ note }: notePropType) => {
           ? note.title.substring(0, 50) + "..."
           : note.title}
       </h3>
-      <pre className="font-[Roboto]  whitespace-pre-wrap">{note.details.length>200 ? (note.details.substring(0, 200)) + "..." : note.details }</pre>
+      <pre className="font-[Roboto]  whitespace-pre-wrap break-words">{note.details.length>200 ? (note.details.substring(0, 200)) + "..." : note.details }</pre>
       <p className="text-xs opacity-85 ">{note.date}</p>
     </Link>
   );

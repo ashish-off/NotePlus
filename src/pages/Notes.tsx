@@ -6,10 +6,10 @@ import { FaPlus } from "react-icons/fa6";
 import { noteState } from "../types";
 import { useSelector } from "react-redux";
 
-const Notes  = () => {
-
-  const notes = useSelector((state: {noteStore : noteState}) => state.noteStore.notes);
-
+const Notes = () => {
+  const notes = useSelector(
+    (state: { noteStore: noteState }) => state.noteStore.notes
+);
 
   return (
     <section>
@@ -35,23 +35,28 @@ const Notes  = () => {
               </button>
             </div>
 
-            <Link to={"/create-note"} className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-100 hover">
-            <FaPlus size={26}/>
+            <Link
+              to={"/create-note"}
+              className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-100 hover"
+            >
+              <FaPlus size={26} />
             </Link>
           </div>
         </div>
       </header>
 
-      <div className="px-20 grid grid-cols-2 md:grid-cols-3 gap-4 ">
+      <div className="px-20 grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
         {notes.map((note) => (
           <NoteItem key={note.id} note={note} />
         ))}
       </div>
 
-      <Link to={"/create-note"} className="fixed bottom-12 right-12 bg-neutral-800/50 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-100 hover:shadow-none hover:scale-105 active:shadow-none active:scale-95">
-            <FaPlus size={26}/>
-            </Link>
-
+      <Link
+        to={"/create-note"}
+        className="fixed bottom-12 right-12 bg-neutral-800/50 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-100 hover:shadow-none hover:scale-105 active:shadow-none active:scale-95"
+      >
+        <FaPlus size={26} />
+      </Link>
     </section>
   );
 };
