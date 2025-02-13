@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
 import { noteState, notesType } from "../types";
 import { useSelector } from "react-redux";
+import { CiCircleMore } from "react-icons/ci";
+import { MdMoreVert } from "react-icons/md";
 
 const Notes = () => {
   const notes = useSelector(
@@ -13,16 +15,16 @@ const Notes = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredNotes, setFilteredNotes] = useState(notes);
+  const [showMore, setShowMore] = useState<boolean>(false);
 
   const handleSearch = () => {
-
     const searchedNote = notes.filter((note) =>
       note.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredNotes(searchedNote);
   };
 
-  useEffect(handleSearch, [searchQuery])
+  useEffect(handleSearch, [searchQuery]);
 
   return (
     <section>
@@ -69,12 +71,34 @@ const Notes = () => {
         ))}
       </div>
 
-      <Link
-        to={"/create-note"}
-        className="fixed bottom-12 right-12 bg-neutral-800/50 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-100 hover:shadow-none hover:scale-105 active:shadow-none active:scale-95"
-      >
-        <FaPlus size={26} />
-      </Link>
+      <div className="fixed bottom-15 right-33 ">
+        <button
+          onClick={() => setShowMore((prev) => !prev)}
+          className="text-white absolute bottom-0  bg-neutral-800/50 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-100 hover:shadow-none hover:scale-105 active:shadow-none active:scale-95"
+        >
+          <MdMoreVert size={26} />
+        </button>
+        {
+          showMore && (
+            <div className=" text-white absolute bottom-[54px] -right-13 flex flex-col  w-34 bg-neutral-800/60 items-center justify-center rounded-2xl shadow-lg">
+            <Link
+              to={"/create-note"}
+              className=" text-center w-full py-3 transition-all duration-100  hover:scale-105 active:shadow-none active:scale-95"
+            >
+              Add Note
+            </Link>
+  
+            <div className="border-1 border-neutral-600 w-full"></div>
+  
+            <button className="text-center w-full py-3 transition-all duration-100  hover:scale-105 active:shadow-none active:scale-95">
+              Delete All
+            </button>
+          </div>
+          )
+        }
+
+
+      </div>
     </section>
   );
 };
