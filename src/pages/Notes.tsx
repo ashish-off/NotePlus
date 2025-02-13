@@ -3,15 +3,16 @@ import { IoMdSearch } from "react-icons/io";
 import NoteItem from "../components/NoteItem";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
-import { noteState, notesType } from "../types";
-import { useSelector } from "react-redux";
-import { CiCircleMore } from "react-icons/ci";
+import { noteState } from "../types";
+import { useDispatch, useSelector } from "react-redux";
 import { MdMoreVert } from "react-icons/md";
+import { deleteAll } from "../features/noteSlice";
 
 const Notes = () => {
   const notes = useSelector(
     (state: { noteStore: noteState }) => state.noteStore.notes
   );
+  const dispatch = useDispatch()
 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredNotes, setFilteredNotes] = useState(notes);
@@ -25,6 +26,17 @@ const Notes = () => {
   };
 
   useEffect(handleSearch, [searchQuery]);
+
+  const handleDeleteAll = () => {
+    dispatch(deleteAll())
+    setShowMore(prev => !prev)  
+  }
+
+  // this set filtered Notes dynamically everytime the notes changes do that the ui would be updated instantly
+  useEffect(() => {
+    setFilteredNotes(notes)
+  }, [notes])
+  
 
   return (
     <section>
@@ -76,7 +88,7 @@ const Notes = () => {
           onClick={() => setShowMore((prev) => !prev)}
           className="text-white absolute bottom-0  bg-neutral-800/50 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-100 hover:shadow-none hover:scale-105 active:shadow-none active:scale-95"
         >
-          <MdMoreVert size={26} />
+          <MdMoreVert size={26} /> ({notes.length} remaining)
         </button>
         {
           showMore && (
@@ -90,7 +102,9 @@ const Notes = () => {
   
             <div className="border-1 border-neutral-600 w-full"></div>
   
-            <button className="text-center w-full py-3 transition-all duration-100  hover:scale-105 active:shadow-none active:scale-95">
+            <button
+            onClick={handleDeleteAll}
+            className="text-center w-full py-3 transition-all duration-100  hover:scale-105 active:shadow-none active:scale-95">
               Delete All
             </button>
           </div>
