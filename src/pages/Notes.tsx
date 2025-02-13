@@ -72,7 +72,7 @@ const Notes = () => {
       </div>
 
       <div className="fixed bottom-15 right-33 ">
-        <button
+        <button title="Show More"
           onClick={() => setShowMore((prev) => !prev)}
           className="text-white absolute bottom-0  bg-neutral-800/50 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-100 hover:shadow-none hover:scale-105 active:shadow-none active:scale-95"
         >
