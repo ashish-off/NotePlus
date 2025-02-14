@@ -52,4 +52,6 @@ This project is licensed under the MIT License.
 
 ## Author
 
-[Ashish Saud](www.linkedin.com/in/ashish-saud-55ab57294)
+- [Ashish Saud](https://github.com/ashish-off)
+- [LinkedIn](https://www.linkedin.com/in/ashish-saud-55ab57294)  
+- [X (formerly Twitter)](https://x.com/ashish_saud15)  
