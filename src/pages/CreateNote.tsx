@@ -11,7 +11,7 @@ const CreateNote = () => {
   const [title, setTitle] = useState<string>("");
   const [details, setDetails] = useState<string>("");
 
-  const nevigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (
@@ -28,7 +28,7 @@ const CreateNote = () => {
       };
       dispatch(addNote(note));
 
-      nevigate("/");
+      navigate("/");
     }
   };
 

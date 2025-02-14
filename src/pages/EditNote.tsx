@@ -13,7 +13,7 @@ const EditNote = () => {
     (state: { noteStore: noteState }) => state.noteStore.notes
   );
   const dispatch = useDispatch();
-  const nevigate = useNavigate();
+  const navigate = useNavigate();
 
   const note = notes.find((item) => item.id === id);
   const [title, setTitle] = useState<string | undefined>(note?.title);
@@ -33,13 +33,13 @@ const EditNote = () => {
       };
 
       dispatch(editNote({ id, editedNote }));
-      nevigate("/");
+      navigate("/");
     }
   };
 
   const handleDelete = () => {
     dispatch(deleteNote({ id }));
-    nevigate("/");
+    navigate("/");
   };
 
   return (

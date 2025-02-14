@@ -3,7 +3,7 @@ import { IoMdSearch } from "react-icons/io";
 import NoteItem from "../components/NoteItem";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
-import { noteState } from "../types";
+import { noteState, notesType } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { MdMoreVert } from "react-icons/md";
 import { deleteAll } from "../features/noteSlice";
@@ -15,11 +15,11 @@ const Notes = () => {
   const dispatch = useDispatch();
 
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredNotes, setFilteredNotes] = useState(notes);
+  const [filteredNotes, setFilteredNotes] = useState<notesType[]>(notes);
   const [showMore, setShowMore] = useState<boolean>(false);
 
   const handleSearch = () => {
-    const searchedNote = notes.filter((note) =>
+    const searchedNote: notesType[] = notes.filter((note) =>
       note.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredNotes(searchedNote);
@@ -32,7 +32,7 @@ const Notes = () => {
     setShowMore((prev) => !prev);
   };
 
-  // this set filtered Notes dynamically everytime the notes changes do that the ui would be updated instantly
+  // this set filtered Notes dynamically everytime the notes changes do that the ui would  update instantly
   useEffect(() => {
     setFilteredNotes(notes);
   }, [notes]);
@@ -114,17 +114,16 @@ const Notes = () => {
         )}
       </div>
 
-      { 
-        !notes.length &&(
-                <div className="text-5xl text-amber-50/50 text-center mt-60">Add Notes </div>
-        )
-      }
-      {
-        (!filteredNotes.length  && searchQuery && notes.length) && (
-                <div className="text-5xl text-amber-50/50 text-center mt-60">No notes found</div>
-        )
-      }
-
+      {!notes.length && (
+        <div className="text-5xl text-amber-50/50 text-center mt-60">
+          Add notes
+        </div>
+      )}
+      {!filteredNotes.length && searchQuery && notes.length && (
+        <div className="text-5xl text-amber-50/50 text-center mt-60">
+          No notes found
+        </div>
+      )}
     </section>
   );
 };
