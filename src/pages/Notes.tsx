@@ -113,6 +113,14 @@ const Notes = () => {
           </div>
         )}
       </div>
+
+      { 
+      
+        !filteredNotes.length &&(
+                <div className="text-5xl text-amber-50/50 text-center mt-60">Add Notes </div>
+        )
+      }
+
     </section>
   );
 };

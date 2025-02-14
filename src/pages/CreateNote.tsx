@@ -24,7 +24,7 @@ const CreateNote = () => {
         id: uuidv4(),
         title,
         details,
-        date: formattedDate,
+        date: formattedDate(),
       };
       dispatch(addNote(note));
 

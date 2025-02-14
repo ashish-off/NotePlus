@@ -29,7 +29,7 @@ const EditNote = () => {
         ...note,
         title,
         details,
-        date: formattedDate,
+        date: formattedDate(),
       };
 
       dispatch(editNote({ id, editedNote }));
