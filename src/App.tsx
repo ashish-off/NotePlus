@@ -16,7 +16,7 @@ const App = () => {
   }, [notes]);
 
   return (
-    <div className="font-[Roboto] bg-slate-500 min-h-screen pb-6">
+    <div className="font-[Roboto] bg-[rgba(8,7,13,0.87)] min-h-screen pb-6">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Notes />} />

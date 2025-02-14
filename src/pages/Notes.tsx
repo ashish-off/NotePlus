@@ -39,11 +39,11 @@ const Notes = () => {
 
   return (
     <section>
-      <header className="border-b-2 border-gray-500 shadow-lg">
+      <header className="  shadow-2xl">
         <div className="flex items-center justify-between py-2 md:py-3 px-8 sm:px-12 md:px-20">
           <Link
             to={"/"}
-            className="text-[32px] sm:text-4xl font-bold font-mono relative"
+            className="text-amber-50/95 text-[32px] sm:text-4xl font-bold font-mono relative"
           >
             Note{" "}
             <span className="absolute bottom-[13px] -right-3 text-2xl text-red-500 ">
@@ -57,13 +57,13 @@ const Notes = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-[100px] sm:w-[200px] md:w-full py-2 px-6 outline-none text-base md:text-lg lg:text-xl  shadow-lg shadow-gray-500/30  border-none bg-gray-600/25 rounded-l-xl focus:shadow-sm focus:shadow-gray-800/20 transition-all"
+                className="w-[100px] placeholder:text-amber-50/80 text-white sm:w-[200px] md:w-full py-2 px-6 outline-none text-base md:text-lg lg:text-xl border-none bg-[#3f3a47] rounded-l-xl focus:shadow-sm focus:shadow-gray-800/20 transition-all"
                 placeholder="search notes..."
               />
 
               <button
                 onClick={handleSearch}
-                className=" shadow-lg shadow-gray-500/30  border-none bg-gray-600/25 rounded-r-xl py-[6px] md:py-2 px-2 cursor-pointer transition-all  active:shadow-sm active:shadow-gray-800/20"
+                className="text-amber-50/80 border-none bg-[#3f3a47] rounded-r-xl py-[6px] md:py-2 px-2 cursor-pointer transition-all  active:shadow-sm active:shadow-gray-800/20"
               >
                 <IoMdSearch size={28} />
               </button>
@@ -71,7 +71,7 @@ const Notes = () => {
 
             <Link
               to={"/create-note"}
-              className=" bg-neutral-800/15 h-11 w-11 sm:h-13 sm:w-13 flex items-center justify-center rounded-xl sm:rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-100 hover"
+              className="text-amber-50/80 bg-[#4f4bbd] h-11 w-11 sm:h-13 sm:w-13 flex items-center justify-center rounded-xl sm:rounded-2xl  transition-all duration-100 hover:scale-102 active:shadow-none active:scale-95"
             >
               <FaPlus size={25} />
             </Link>
@@ -89,12 +89,12 @@ const Notes = () => {
         <button
           title="Show More"
           onClick={() => setShowMore((prev) => !prev)}
-          className="text-white absolute bottom-0  bg-neutral-800/50 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-100 hover:shadow-none hover:scale-105 active:shadow-none active:scale-95"
+          className="text-white absolute bottom-0  bg-[#4f4bbd] h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg transition-all duration-100 hover:shadow-none hover:scale-102 active:shadow-none active:scale-95"
         >
           <MdMoreVert size={26} />
         </button>
         {showMore && (
-          <div className=" text-white absolute bottom-[54px] -right-13 flex flex-col  w-34 bg-neutral-800/60 items-center justify-center rounded-2xl shadow-lg">
+          <div className=" text-white bg-[#886e63b7] absolute bottom-[54px] -right-13 flex flex-col  w-34 items-center justify-center rounded-2xl shadow-lg">
             <Link
               to={"/create-note"}
               className=" text-center w-full py-3 transition-all duration-100  hover:scale-105 active:shadow-none active:scale-95"

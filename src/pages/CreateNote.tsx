@@ -34,11 +34,11 @@ const CreateNote = () => {
 
   return (
     <section className="w-full sm:w-md mx-auto py-4 px-4 sm:px-0">
-      <main className="bg-gray-900/20 my-8 shadow-2xl rounded-4xl">
+      <main className="bg-[#3F3A47] my-8 shadow-2xl rounded-4xl">
         <header className="flex justify-between items-center py-4 px-4">
           <Link
             to={"/"}
-            className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150"
+            className="bg-[#4f4bbd] text-amber-50/80 h-13 w-13 flex items-center justify-center rounded-2xl hover:scale-104 active:shadow-none active:scale-95 transition-all duration-100"
           >
             <MdArrowBackIos size={28} />{" "}
           </Link>
@@ -47,7 +47,7 @@ const CreateNote = () => {
 
           <button
             onClick={handleSubmit}
-            className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150"
+            className="bg-[#4f4bbd] text-amber-50/80 h-13 w-13 flex items-center justify-center rounded-2xl hover:scale-104 active:shadow-none active:scale-95 transition-all duration-100"
           >
             <IoMdCheckmark size={32} />
           </button>
@@ -60,13 +60,13 @@ const CreateNote = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             autoFocus
-            className="w-full px-4 py-2 rounded-xl text-[28px] sm:text-3xl text-white outline-none"
+            className="w-full px-4 py-2 rounded-xl text-3xl text-amber-50/80 outline-none"
           />
           <textarea
             rows={16}
             value={details}
             onChange={(e) => setDetails(e.target.value)}
-            className="w-full px-4 py-2 rounded-xl text-lg text-white outline-none"
+            className="w-full px-4 py-2 rounded-xl text-lg text-amber-50/80 outline-none"
             placeholder="Write note details"
           ></textarea>
         </form>
