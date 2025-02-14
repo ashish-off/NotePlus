@@ -3,7 +3,7 @@ import { IoMdCheckmark } from "react-icons/io";
 import { MdArrowBackIos, MdDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { noteState, notesType } from "../types";
+import { noteState } from "../types";
 import formattedDate from "../hooks/UseformattedDate";
 import { deleteNote, editNote } from "../features/noteSlice";
 

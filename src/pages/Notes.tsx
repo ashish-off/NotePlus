@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdSearch } from "react-icons/io";
 import NoteItem from "../components/NoteItem";
 import { Link } from "react-router-dom";
