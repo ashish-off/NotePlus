@@ -13,7 +13,7 @@ const EditNote = () => {
     (state: { noteStore: noteState }) => state.noteStore.notes
   );
   const dispatch = useDispatch();
-  const nevigate = useNavigate()
+  const nevigate = useNavigate();
 
   const note = notes.find((item) => item.id === id);
   const [title, setTitle] = useState<string | undefined>(note?.title);
@@ -32,19 +32,18 @@ const EditNote = () => {
         date: formattedDate,
       };
 
-      // console.log(editedNote);
-      dispatch(editNote({id, editedNote}))
-      nevigate("/")
+      dispatch(editNote({ id, editedNote }));
+      nevigate("/");
     }
   };
 
   const handleDelete = () => {
-    dispatch(deleteNote({id}))
-    nevigate("/")
-  }
+    dispatch(deleteNote({ id }));
+    nevigate("/");
+  };
 
   return (
-    <section className="w-full md:w-md mx-auto py-4 px-4 md:px-0">
+    <section className="w-full sm:w-md mx-auto py-1 px-4 sm:px-0">
       <main className="bg-gray-900/20 my-8 shadow-2xl rounded-4xl">
         <header className="flex justify-between items-center py-4 px-4">
           <Link
@@ -60,7 +59,10 @@ const EditNote = () => {
             <IoMdCheckmark size={32} />
           </button>
 
-          <button onClick={handleDelete} className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150">
+          <button
+            onClick={handleDelete}
+            className="bg-neutral-800/15 h-13 w-13 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-none active:shadow-none active:scale-95 transition-all duration-150"
+          >
             <MdDeleteOutline size={28} />
           </button>
         </header>
@@ -71,7 +73,6 @@ const EditNote = () => {
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            autoFocus
             className="w-full px-4 py-2 rounded-xl text-3xl text-white outline-none"
           />
           <textarea
@@ -82,6 +83,9 @@ const EditNote = () => {
             placeholder="Write note details"
           ></textarea>
         </form>
+        <h1 className="text-amber-50/50 text-xs text-center ">
+          Last Edited : {note?.date}
+        </h1>
       </main>
     </section>
   );

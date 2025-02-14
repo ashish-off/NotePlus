@@ -6,17 +6,17 @@ import EditNote from "./pages/EditNote";
 import { useSelector } from "react-redux";
 import { noteState } from "./types";
 
-
 const App = () => {
-
-  const notes = useSelector((state: {noteStore : noteState}) => state.noteStore.notes);
+  const notes = useSelector(
+    (state: { noteStore: noteState }) => state.noteStore.notes
+  );
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
-  }, [notes])
+  }, [notes]);
 
   return (
-    <div className="font-[Roboto] bg-slate-500 min-h-screen ">
+    <div className="font-[Roboto] bg-slate-500 min-h-screen pb-6">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Notes />} />
