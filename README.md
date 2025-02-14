@@ -54,4 +54,8 @@ This project is licensed under the MIT License.
 
 - [Ashish Saud](https://github.com/ashish-off)
 - [LinkedIn](https://www.linkedin.com/in/ashish-saud-55ab57294)  
-- [X (formerly Twitter)](https://x.com/ashish_saud15)  
+- [X (formerly Twitter)](https://x.com/ashish_saud15)
+
+## Ui design
+
+![Image](https://github.com/user-attachments/assets/d2687bee-76bd-4a53-8d3a-bbfef11a2337)
