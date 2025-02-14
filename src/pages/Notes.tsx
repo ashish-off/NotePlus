@@ -115,9 +115,13 @@ const Notes = () => {
       </div>
 
       { 
-      
-        !filteredNotes.length &&(
+        !notes.length &&(
                 <div className="text-5xl text-amber-50/50 text-center mt-60">Add Notes </div>
+        )
+      }
+      {
+        (!filteredNotes.length  && searchQuery && notes.length) && (
+                <div className="text-5xl text-amber-50/50 text-center mt-60">No notes found</div>
         )
       }
 
