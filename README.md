@@ -2,6 +2,7 @@
 # NotePlus
 
 A simple and intuitive note-taking application built with React, TypeScript and Redux. This app allows users to create, edit, delete, and search notes efficiently.
+ ## [noteplus-ashish.netlify.app](https://noteplus-ashish.netlify.app/)
 
 ## Features
 
