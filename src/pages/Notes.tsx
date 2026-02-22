@@ -1,41 +1,36 @@
-import { useEffect, useState } from "react";
-import { IoMdSearch } from "react-icons/io";
+import { useState } from "react";
 import NoteItem from "../components/NoteItem";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
-import { noteState, notesType } from "../types";
-import { useDispatch, useSelector } from "react-redux";
+import { notesType } from "../types";
 import { MdMoreVert } from "react-icons/md";
-import { deleteAll } from "../features/noteSlice";
+import { useGetNotesQuery, useDeleteAllNotesMutation } from "@/features/notesApi";
 
 const Notes = () => {
-  const notes = useSelector(
-    (state: { noteStore: noteState }) => state.noteStore.notes
-  );
-  const dispatch = useDispatch();
+  const { data, isLoading, isError } = useGetNotesQuery();
+  const [deleteAllNotes] = useDeleteAllNotesMutation();  
+
+  const notes : notesType[] =
+    data?.data.map((note) => ({
+      id: note._id,
+      title: note.title,
+      details: note.details,
+      date: note.dateLabel,
+    })) || [];
 
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredNotes, setFilteredNotes] = useState<notesType[]>(notes);
   const [showMore, setShowMore] = useState<boolean>(false);
 
-  const handleSearch = () => {
-    const searchedNote: notesType[] = notes.filter((note) =>
-      note.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
-    );
-    setFilteredNotes(searchedNote);
-  };
-
-  useEffect(handleSearch, [searchQuery]);
+  const filteredNotes = searchQuery
+    ? notes.filter((note) =>
+        note.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
+      )
+    : notes;
 
   const handleDeleteAll = () => {
-    dispatch(deleteAll());
+    deleteAllNotes();
     setShowMore((prev) => !prev);
   };
-
-  // this set filtered Notes dynamically everytime the notes changes do that the ui would  update instantly
-  useEffect(() => {
-    setFilteredNotes(notes);
-  }, [notes]);
 
   return (
     <section>
@@ -57,16 +52,9 @@ const Notes = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-[100px] placeholder:text-amber-50/80 text-white sm:w-[200px] md:w-full py-2 px-6 outline-none text-base md:text-lg lg:text-xl border-none bg-[#3f3a47] rounded-l-xl focus:shadow-sm focus:shadow-gray-800/20 transition-all"
-                placeholder="search notes..."
+                className="w-25 placeholder:text-amber-50/80 text-white sm:w-50 md:w-full py-2 px-6 outline-none text-base md:text-lg lg:text-xl border-none bg-[#3f3a47] rounded-xl focus:shadow-sm focus:shadow-gray-800/20 transition-all"
+                placeholder="Search Notes..."
               />
-
-              <button
-                onClick={handleSearch}
-                className="text-amber-50/80 border-none bg-[#3f3a47] rounded-r-xl py-[6px] md:py-2 px-2 cursor-pointer transition-all  active:shadow-sm active:shadow-gray-800/20"
-              >
-                <IoMdSearch size={28} />
-              </button>
             </div>
 
             <Link
@@ -114,9 +102,14 @@ const Notes = () => {
         )}
       </div>
 
-      {!notes.length && (
+      {isLoading && (
         <div className="text-5xl text-amber-50/50 text-center mt-60">
-          Add notes
+          Loading notes...
+        </div>
+      )}
+      {isError && (
+        <div className="text-5xl text-amber-50/50 text-center mt-60">
+          Error loading notes
         </div>
       )}
       {!filteredNotes.length && searchQuery && notes.length && (
