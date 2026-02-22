@@ -1,44 +1,48 @@
 import React, { useState } from "react";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdArrowBackIos, MdDeleteOutline } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { noteState } from "../types";
-import formattedDate from "../hooks/UseformattedDate";
-import { deleteNote, editNote } from "../features/noteSlice";
+
+import {
+  useUpdateNoteMutation,
+  useGetNoteByIdQuery,
+  useDeleteNoteMutation,
+} from "@/features/notesApi";
 
 const EditNote = () => {
-  const { id } = useParams();
-  const notes = useSelector(
-    (state: { noteStore: noteState }) => state.noteStore.notes
-  );
-  const dispatch = useDispatch();
+  const params = useParams();
+  const id = params.id ?? "";
   const navigate = useNavigate();
 
-  const note = notes.find((item) => item.id === id);
+  const { data, isLoading, isError } = useGetNoteByIdQuery(id);
+  const note = data?.data
+    ? {
+        id: data.data._id,
+        title: data.data.title,
+        details: data.data.details,
+        date : data.data.dateLabel,
+      }
+    : undefined;
+
+    const [updateNote] = useUpdateNoteMutation();
+    const [deleteNote] = useDeleteNoteMutation();
   const [title, setTitle] = useState<string | undefined>(note?.title);
   const [details, setdetails] = useState<string | undefined>(note?.details);
 
   const handleForm = (
-    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
 
-    if (title && details) {
-      const editedNote = {
-        ...note,
-        title,
-        details,
-        date: formattedDate(),
-      };
-
-      dispatch(editNote({ id, editedNote }));
+    if (id && title && details) {
+      const editedNote = { title, details };
+      updateNote({ id, data: editedNote });
       navigate("/");
     }
   };
 
   const handleDelete = () => {
-    dispatch(deleteNote({ id }));
+    deleteNote(id);
     navigate("/");
   };
 
