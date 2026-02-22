@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdArrowBackIos } from "react-icons/md";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { addNote } from "../features/noteSlice";
-import formattedDate from "../hooks/UseformattedDate";
+import { useCreateNoteMutation } from "@/features/notesApi";
 
 const CreateNote = () => {
   const [title, setTitle] = useState<string>("");
   const [details, setDetails] = useState<string>("");
 
+  const [createNote] = useCreateNoteMutation();
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSubmit = (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
@@ -21,13 +19,10 @@ const CreateNote = () => {
 
     if (title && details) {
       const note = {
-        id: uuidv4(),
         title,
         details,
-        date: formattedDate(),
       };
-      dispatch(addNote(note));
-
+      createNote(note);
       navigate("/");
     }
   };
