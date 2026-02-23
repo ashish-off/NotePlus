@@ -1,31 +1,41 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import NoteItem from "../components/NoteItem";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
 import { notesType } from "../types";
 import { MdMoreVert } from "react-icons/md";
-import { useGetNotesQuery, useDeleteAllNotesMutation } from "@/features/notesApi";
+import {
+  useGetNotesQuery,
+  useDeleteAllNotesMutation,
+} from "@/features/notesApi";
 
 const Notes = () => {
   const { data, isLoading, isError } = useGetNotesQuery();
-  const [deleteAllNotes] = useDeleteAllNotesMutation();  
+  const [deleteAllNotes] = useDeleteAllNotesMutation();
 
-  const notes : notesType[] =
-    data?.data.map((note) => ({
-      id: note._id,
-      title: note.title,
-      details: note.details,
-      date: note.dateLabel,
-    })) || [];
+  const notes: notesType[] = useMemo(
+    () =>
+      data?.data.map((note) => ({
+        id: note._id,
+        title: note.title,
+        details: note.details,
+        date: note.dateLabel,
+      })) || [],
+    [data],
+  );
 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [showMore, setShowMore] = useState<boolean>(false);
 
-  const filteredNotes = searchQuery
-    ? notes.filter((note) =>
-        note.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
-      )
-    : notes;
+  const filteredNotes = useMemo(
+    () =>
+      searchQuery
+        ? notes.filter((note) =>
+            note.title.toLowerCase().includes(searchQuery.trim().toLowerCase()),
+          )
+        : notes,
+    [searchQuery, notes],
+  );
 
   const handleDeleteAll = () => {
     deleteAllNotes();
