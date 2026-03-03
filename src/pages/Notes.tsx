@@ -122,7 +122,7 @@ const Notes = () => {
           Error loading notes
         </div>
       )}
-      {!filteredNotes.length && searchQuery && notes.length && (
+      {filteredNotes.length < 1 && !isLoading && !isError && (
         <div className="text-5xl text-amber-50/50 text-center mt-60">
           No notes found
         </div>
