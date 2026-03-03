@@ -3,7 +3,10 @@ import { ApiResponse, Note } from "../types";
 
 export const noteApi = createApi({
   reducerPath: "noteApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:3000/api",
+    credentials: "include",
+  }),
   tagTypes: ["Notes"],
   endpoints: (builder) => ({
     // Fetch all notes
@@ -22,7 +25,10 @@ export const noteApi = createApi({
     }),
 
     // update a note
-    updateNote: builder.mutation<ApiResponse<Note>, { id: string; data: Partial<Note> }>({
+    updateNote: builder.mutation<
+      ApiResponse<Note>,
+      { id: string; data: Partial<Note> }
+    >({
       query: ({ id, data }) => ({
         url: `/notes/${id}`,
         method: "PUT",
@@ -43,7 +49,7 @@ export const noteApi = createApi({
     // delete all notes
     deleteAllNotes: builder.mutation<ApiResponse<null>, void>({
       query: () => ({
-        url: "/notes",
+        url: "/notes/delete-all",
         method: "DELETE",
       }),
       invalidatesTags: ["Notes"],

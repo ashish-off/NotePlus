@@ -1,3 +1,4 @@
+// the redux toolkit for local storage (older version, no more use)
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { noteState, notesType } from "../types";
 
