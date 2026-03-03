@@ -10,11 +10,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../features/authApi";
 
 const Login = () => {
   const navigate  = useNavigate();
+  const [login] = useLoginMutation();
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const values = {
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+    login(values)
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+      });
   };
   return (
     <section className="w-full flex items-center justify-center h-screen mx-auto py-1 px-4 sm:px-0">
@@ -26,12 +41,13 @@ const Login = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleLogin} id="loginForm">
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="m@example.com"
                   required
@@ -42,6 +58,7 @@ const Login = () => {
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
                   placeholder="Enter your password"
                   required
@@ -52,7 +69,7 @@ const Login = () => {
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" form="loginForm">
             Login
           </Button>
           <p className="text-sm text-gray-400 text-center">
