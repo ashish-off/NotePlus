@@ -11,26 +11,30 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../features/authApi";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/features/authSlice";
+import { LoginCredentials } from "@/types";
 
 const Login = () => {
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   const [login] = useLoginMutation();
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const dispatch = useDispatch();
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const values = {
-      email: formData.get("email"),
-      password: formData.get("password"),
+    const values: LoginCredentials = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
     };
-    login(values)
-      .unwrap()
-      .then(() => {
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("Login error:", error);
-      });
+    try {
+      const data = await login(values).unwrap();
+      dispatch(setUser({ name: data.user.name }));
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
+
   return (
     <section className="w-full flex items-center justify-center h-screen mx-auto py-1 px-4 sm:px-0">
       <Card className="w-full max-w-md py-8 px-2 bg-[#413752] text-white border-gray-600">
@@ -74,7 +78,11 @@ const Login = () => {
           </Button>
           <p className="text-sm text-gray-400 text-center">
             Don't have an account?{" "}
-            <Button variant="link" className="text-white p-0 h-auto" onClick={() =>navigate("/signup")}>
+            <Button
+              variant="link"
+              className="text-white p-0 h-auto"
+              onClick={() => navigate("/signup")}
+            >
               Sign Up
             </Button>
           </p>

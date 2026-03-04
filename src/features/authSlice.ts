@@ -1,21 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit/react";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AuthState } from "@/types";
+
+const initialState: AuthState = {
+  name: null,
+  isAuthenticated: false,
+};
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    name: localStorage.getItem("name") || null,
-    isAuthinticated: !!localStorage.getItem("token"),
-  },
+  initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.name = action.payload;
-      state.isAuthinticated = true;
-      localStorage.setItem("name", action.payload);
+    setUser: (state, action: PayloadAction<{ name: string }>) => {
+      state.name = action.payload.name;
+      state.isAuthenticated = true;
     },
     clearUser: (state) => {
       state.name = null;
-      state.isAuthinticated = false;
-      localStorage.removeItem("name");
+      state.isAuthenticated = false;
     },
   },
 });

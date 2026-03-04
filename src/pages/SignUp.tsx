@@ -11,11 +11,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../features/authApi";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/features/authSlice";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [register] = useRegisterMutation();
-  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+  const dispatch = useDispatch();
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const values = {
@@ -23,15 +26,13 @@ const SignUp = () => {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-    register(values)
-      .unwrap()
-      .then(() => {
-        console.log("Sign Up Values:", values);
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.error("Registration error:", error);
-      });
+    try {
+      const data = await register(values).unwrap();
+      dispatch(setUser({ name: data.user.name }));
+      navigate("/");
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   };
   return (
     <section className="w-full flex items-center justify-center h-screen mx-auto py-1 px-4 sm:px-0">

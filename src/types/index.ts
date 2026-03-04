@@ -25,3 +25,30 @@ export interface notesType {
 export interface noteState {
   notes: notesType[];
 }
+
+// Auth Types
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+export interface AuthState {
+  name: string | null;
+  isAuthenticated: boolean;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface RegisterCredentials {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  user: User;
+}
