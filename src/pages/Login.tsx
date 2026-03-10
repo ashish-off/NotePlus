@@ -17,8 +17,9 @@ import { LoginCredentials } from "@/types";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -28,6 +29,7 @@ const Login = () => {
     };
     try {
       const data = await login(values).unwrap();
+      console.log("Login response:", data);
       dispatch(setUser({ name: data.user.name }));
       navigate("/");
     } catch (error) {
@@ -73,8 +75,13 @@ const Login = () => {
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          <Button type="submit" className="w-full" form="loginForm">
-            Login
+          <Button
+            type="submit"
+            className="w-full"
+            form="loginForm"
+            disabled={isLoading}
+          >
+            {isLoading ? "Logging in..." : "Login"}
           </Button>
           <p className="text-sm text-gray-400 text-center">
             Don't have an account?{" "}

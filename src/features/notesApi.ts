@@ -57,7 +57,7 @@ export const noteApi = createApi({
     // fetch a single note by ID
     getNoteById: builder.query<ApiResponse<Note>, string>({
       query: (id) => `/notes/${id}`,
-      providesTags: (result, error, id) => [{ type: "Notes", id }],
+      providesTags: ["Notes"],
     }),
   }),
 });

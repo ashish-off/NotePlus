@@ -13,18 +13,20 @@ import { useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../features/authApi";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/features/authSlice";
+import { RegisterCredentials } from "@/types";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [register] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation();
   const dispatch = useDispatch();
+
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const values = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
+    const values: RegisterCredentials = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
     };
     try {
       const data = await register(values).unwrap();
@@ -83,12 +85,21 @@ const SignUp = () => {
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          <Button type="submit" className="w-full" form="signupForm">
-            Sign Up
+          <Button
+            type="submit"
+            className="w-full"
+            form="signupForm"
+            disabled={isLoading}
+          >
+            {isLoading ? "Creating account..." : "Sign Up"}
           </Button>
           <p className="text-sm text-gray-400 text-center">
             Already have an account?{" "}
-            <Button variant="link" className="text-white p-0 h-auto" onClick={() => navigate("/login")}>
+            <Button
+              variant="link"
+              className="text-white p-0 h-auto"
+              onClick={() => navigate("/login")}
+            >
               Login
             </Button>
           </p>

@@ -2,8 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "@/types";
 
 const initialState: AuthState = {
-  name: null,
-  isAuthenticated: false,
+  name: localStorage.getItem("notePlusUser") || null,
 };
 
 export const authSlice = createSlice({
@@ -12,11 +11,11 @@ export const authSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<{ name: string }>) => {
       state.name = action.payload.name;
-      state.isAuthenticated = true;
+      localStorage.setItem("notePlusUser", action.payload.name);
     },
     clearUser: (state) => {
       state.name = null;
-      state.isAuthenticated = false;
+      localStorage.removeItem("notePlusUser");
     },
   },
 });

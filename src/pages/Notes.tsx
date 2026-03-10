@@ -89,7 +89,11 @@ const Notes = () => {
             >
               <FaPlus size={25} />
             </Link>
-            <Button onClick={handleLogout} variant="outline" className="bg-transparent text-white hover:text-white border-amber-50/30 hover:bg-amber-50/5">
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="bg-transparent text-white hover:text-white border-amber-50/30 hover:bg-amber-50/5"
+            >
               Log Out
             </Button>
           </div>

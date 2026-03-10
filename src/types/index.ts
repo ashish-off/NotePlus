@@ -35,7 +35,6 @@ export interface User {
 
 export interface AuthState {
   name: string | null;
-  isAuthenticated: boolean;
 }
 
 export interface LoginCredentials {
