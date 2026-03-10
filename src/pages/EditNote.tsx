@@ -8,6 +8,7 @@ import {
   useGetNoteByIdQuery,
   useDeleteNoteMutation,
 } from "@/features/notesApi";
+import AlertDialogSmall from "@/components/AlertDialogSmall";
 
 const EditNote = () => {
   const params = useParams();
@@ -75,12 +76,17 @@ const EditNote = () => {
                 <IoMdCheckmark size={32} />
               </button>
 
-              <button
-                onClick={handleDelete}
-                className="bg-[#4f4bbd] text-amber-50/80 h-13 w-13 flex items-center justify-center rounded-2xl hover:scale-104 active:shadow-none active:scale-95 transition-all duration-100"
-              >
-                <MdDeleteOutline size={28} />
-              </button>
+              <AlertDialogSmall
+                title="Delete Notes"
+                description="You will lose your notes."
+                actionText="Delete"
+                handleAction={handleDelete}
+                trigger={
+                  <button className="bg-[#4f4bbd] text-amber-50/80 h-13 w-13 flex items-center justify-center rounded-2xl hover:scale-104 active:shadow-none active:scale-95 transition-all duration-100">
+                    <MdDeleteOutline size={28} />
+                  </button>
+                }
+              />
             </div>
           )}
         </header>

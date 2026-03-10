@@ -14,11 +14,13 @@ import { useRegisterMutation } from "../features/authApi";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/features/authSlice";
 import { RegisterCredentials } from "@/types";
+import { useState } from "react";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [register, { isLoading }] = useRegisterMutation();
   const dispatch = useDispatch();
+  const [error, setError] = useState<string>("");
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +35,7 @@ const SignUp = () => {
       dispatch(setUser({ name: data.user.name }));
       navigate("/");
     } catch (error) {
-      console.error("Registration error:", error);
+      setError(error.data?.message);
     }
   };
   return (
@@ -85,6 +87,7 @@ const SignUp = () => {
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
+          {error && <p className="text-red-500 text-sm">{error}</p>}
           <Button
             type="submit"
             className="w-full"

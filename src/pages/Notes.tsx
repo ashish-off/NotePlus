@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import NoteItem from "../components/NoteItem";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
 import { notesType } from "../types";
 import { MdMoreVert } from "react-icons/md";
@@ -8,17 +8,13 @@ import {
   useGetNotesQuery,
   useDeleteAllNotesMutation,
 } from "@/features/notesApi";
-import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
-import { clearUser } from "@/features/authSlice";
-import { useLogoutMutation } from "@/features/authApi";
+
+import Logout from "@/components/Logout";
+import AlertDialogSmall from "@/components/AlertDialogSmall";
 
 const Notes = () => {
   const { data, isLoading, isError } = useGetNotesQuery();
   const [deleteAllNotes] = useDeleteAllNotesMutation();
-  const [logout] = useLogoutMutation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const notes: notesType[] = useMemo(
     () =>
       data?.data.map((note) => ({
@@ -46,16 +42,6 @@ const Notes = () => {
   const handleDeleteAll = () => {
     deleteAllNotes();
     setShowMore((prev) => !prev);
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      dispatch(clearUser());
-      navigate("/login");
-    } catch (error) {
-      console.log("logOut Error: ", error);
-    }
   };
 
   return (
@@ -89,13 +75,7 @@ const Notes = () => {
             >
               <FaPlus size={25} />
             </Link>
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="bg-transparent text-white hover:text-white border-amber-50/30 hover:bg-amber-50/5"
-            >
-              Log Out
-            </Button>
+            <Logout />
           </div>
         </div>
       </header>
@@ -125,12 +105,18 @@ const Notes = () => {
 
             <div className="border-1 border-neutral-600 w-full"></div>
 
-            <button
-              onClick={handleDeleteAll}
-              className="text-center w-full py-3 transition-all duration-100  hover:scale-105 active:shadow-none active:scale-95"
-            >
-              Delete All
-            </button>
+            <AlertDialogSmall
+              title="Delete All Notes?"
+              description="You will lose all your notes."
+              actionText="Delete"
+              handleAction={handleDeleteAll}
+              trigger={
+                <button className="text-center w-full py-3 transition-all duration-100  hover:scale-105 active:shadow-none active:scale-95">
+                  Delete All
+                </button>
+              }
+            />
+            
           </div>
         )}
       </div>
