@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "@/features/authSlice";
 import { LoginCredentials } from "@/types";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,8 +34,10 @@ const Login = () => {
       const data = await login(values).unwrap();
       console.log("Login response:", data);
       dispatch(setUser({ name: data.user.name }));
+      toast.success("Login successful");
+
       navigate("/");
-    } catch (error) {
+    } catch (error : any) {
       console.error("Login error:", error.data?.message );
       setError(error.data?.message);
     }

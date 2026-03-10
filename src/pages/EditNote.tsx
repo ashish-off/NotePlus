@@ -9,6 +9,7 @@ import {
   useDeleteNoteMutation,
 } from "@/features/notesApi";
 import AlertDialogSmall from "@/components/AlertDialogSmall";
+import { toast } from "sonner";
 
 const EditNote = () => {
   const params = useParams();
@@ -43,6 +44,7 @@ const EditNote = () => {
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
+    toast.success("Note has been updated")
 
     if (id && title && details) {
       const editedNote = { title, details };
@@ -53,6 +55,7 @@ const EditNote = () => {
 
   const handleDelete = () => {
     deleteNote(id);
+    toast.info("Note has been deleted")
     navigate("/");
   };
 

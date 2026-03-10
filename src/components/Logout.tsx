@@ -4,6 +4,7 @@ import { clearUser } from "@/features/authSlice";
 import { useLogoutMutation } from "@/features/authApi";
 import { useNavigate } from "react-router-dom";
 import AlertDialogSmall from "./AlertDialogSmall";
+import { toast } from "sonner";
 
 const Logout = () => {
   const [logout] = useLogoutMutation();
@@ -14,6 +15,7 @@ const Logout = () => {
     try {
       await logout();
       dispatch(clearUser());
+      toast.success("Logged out successfully");
       navigate("/login");
     } catch (error) {
       console.log("logOut Error: ", error);

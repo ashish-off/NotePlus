@@ -3,6 +3,7 @@ import { IoMdCheckmark } from "react-icons/io";
 import { MdArrowBackIos } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useCreateNoteMutation } from "@/features/notesApi";
+import { toast } from "sonner";
 
 const CreateNote = () => {
   const [title, setTitle] = useState<string>("");
@@ -16,6 +17,7 @@ const CreateNote = () => {
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ): void => {
     e.preventDefault();
+    toast.success("Note has been created")
 
     if (title && details) {
       const note = {

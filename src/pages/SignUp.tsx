@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "@/features/authSlice";
 import { RegisterCredentials } from "@/types";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -33,8 +34,9 @@ const SignUp = () => {
     try {
       const data = await register(values).unwrap();
       dispatch(setUser({ name: data.user.name }));
+      toast.success("Account created successfully");
       navigate("/");
-    } catch (error) {
+    } catch (error : any) {
       setError(error.data?.message);
     }
   };
