@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { clearUser } from "@/features/authSlice";
 import { useLogoutMutation } from "@/features/authApi";
+import {authApi} from "@/features/authApi";
+import {noteApi} from "@/features/notesApi";
 import { useNavigate } from "react-router-dom";
 import AlertDialogSmall from "./AlertDialogSmall";
 import { toast } from "sonner";
@@ -13,8 +15,10 @@ const Logout = () => {
 
   const handleLogout = async () => {
     try {
-      await logout();
+      await logout().unwrap();
       dispatch(clearUser());
+      dispatch(authApi.util.resetApiState());
+      dispatch(noteApi.util.resetApiState());
       toast.success("Logged out successfully");
       navigate("/login");
     } catch (error) {

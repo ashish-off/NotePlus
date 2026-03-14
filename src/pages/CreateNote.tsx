@@ -13,19 +13,21 @@ const CreateNote = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
-  ): void => {
+  ): Promise<void> => {
     e.preventDefault();
-    toast.success("Note has been created")
-
-    if (title && details) {
+    
+    if (title.trim() && details.trim()) {
       const note = {
         title,
         details,
       };
-      createNote(note);
+      await createNote(note).unwrap();
       navigate("/");
+      toast.success("Note has been created")
+    } else {
+      toast.error("Please fill in all the fields")
     }
   };
 

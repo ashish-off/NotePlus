@@ -40,23 +40,33 @@ const EditNote = () => {
     }
   }, [note]);
 
-  const handleForm = (
+  const handleForm = async (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
-  ) => {
+  ): Promise<void> => {
     e.preventDefault();
-    toast.success("Note has been updated")
 
-    if (id && title && details) {
-      const editedNote = { title, details };
-      updateNote({ id, data: editedNote });
-      navigate("/");
+    if (id && title.trim() && details.trim()) {
+      try {
+        const editedNote = { title, details };
+        await updateNote({ id, data: editedNote }).unwrap();
+        navigate("/");
+        toast.success("Note has been updated");
+      } catch (error) {
+        toast.error("Failed to update note");
+      }
+    } else {
+      toast.error("Please fill in all the fields");
     }
   };
 
-  const handleDelete = () => {
-    deleteNote(id);
-    toast.info("Note has been deleted")
-    navigate("/");
+  const handleDelete = async () => {
+    try {
+      await deleteNote(id).unwrap();
+      toast.info("Note has been deleted");
+      navigate("/");
+    } catch (error) {
+      toast.error("Failed to delete note");
+    }
   };
 
   return (
