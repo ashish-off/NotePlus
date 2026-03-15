@@ -1,34 +1,33 @@
 import React, { useState } from "react";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdArrowBackIos } from "react-icons/md";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { addNote } from "../features/noteSlice";
-import formattedDate from "../hooks/UseformattedDate";
+import { useCreateNoteMutation } from "@/features/notesApi";
+import { toast } from "sonner";
 
 const CreateNote = () => {
   const [title, setTitle] = useState<string>("");
   const [details, setDetails] = useState<string>("");
 
+  const [createNote] = useCreateNoteMutation();
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
-  ): void => {
+  ): Promise<void> => {
     e.preventDefault();
-
-    if (title && details) {
+    
+    if (title.trim() && details.trim()) {
       const note = {
-        id: uuidv4(),
         title,
         details,
-        date: formattedDate(),
       };
-      dispatch(addNote(note));
-
+      await createNote(note).unwrap();
       navigate("/");
+      toast.success("Note has been created")
+    } else {
+      toast.error("Please fill in all the fields")
     }
   };
 
