@@ -4,7 +4,7 @@ import { ApiResponse, Note } from "../types";
 export const noteApi = createApi({
   reducerPath: "noteApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
     credentials: "include",
   }),
   tagTypes: ["Notes"],

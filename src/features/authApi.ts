@@ -4,7 +4,7 @@ import { AuthResponse, LoginCredentials, RegisterCredentials } from "@/types";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api/auth",
+    baseUrl: import.meta.env.VITE_AUTH_URL || "http://localhost:3000/api/auth",
     credentials: "include",
   }),
   tagTypes: ["Auth"],
