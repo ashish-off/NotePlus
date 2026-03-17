@@ -8,26 +8,33 @@ import { toast } from "sonner";
 const CreateNote = () => {
   const [title, setTitle] = useState<string>("");
   const [details, setDetails] = useState<string>("");
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
   const [createNote] = useCreateNoteMutation();
 
   const navigate = useNavigate();
 
   const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ): Promise<void> => {
     e.preventDefault();
-    
     if (title.trim() && details.trim()) {
-      const note = {
-        title,
-        details,
-      };
-      await createNote(note).unwrap();
-      navigate("/");
-      toast.success("Note has been created")
+      try {
+        setSubmitting(true);
+        const note = {
+          title,
+          details,
+        };
+        await createNote(note).unwrap();
+        navigate("/");
+        toast.success("Note has been created");
+      } catch (error) {
+        toast.error("Failed to create note");
+      } finally {
+        setSubmitting(false);
+      }
     } else {
-      toast.error("Please fill in all the fields")
+      toast.error("Please fill in all the fields");
     }
   };
 
@@ -46,6 +53,7 @@ const CreateNote = () => {
 
           <button
             onClick={handleSubmit}
+            disabled = {submitting}
             className="bg-[#4f4bbd] text-amber-50/80 h-13 w-13 flex items-center justify-center rounded-2xl hover:scale-104 active:shadow-none active:scale-95 transition-all duration-100"
           >
             <IoMdCheckmark size={32} />
