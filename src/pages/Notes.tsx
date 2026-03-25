@@ -8,6 +8,7 @@ import {
   useGetNotesQuery,
   useDeleteAllNotesMutation,
 } from "@/features/notesApi";
+import formattedDate from "@/hooks/UseformattedDate";
 
 import Logout from "@/components/Logout";
 import AlertDialogSmall from "@/components/AlertDialogSmall";
@@ -21,7 +22,7 @@ const Notes = () => {
         id: note._id,
         title: note.title,
         details: note.details,
-        date: note.dateLabel,
+        date: formattedDate(note.updatedAt),
       })) || [],
     [data],
   );
@@ -116,7 +117,6 @@ const Notes = () => {
                 </button>
               }
             />
-            
           </div>
         )}
       </div>

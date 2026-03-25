@@ -9,14 +9,13 @@ export interface Note {
   title: string;
   details: string;
   userId?: string;
-  dateLabel: string;
   createdAt: string;
   updatedAt: string;
   __v?: number;
 }
 
 export interface notesType {
-  id?: string ;
+  id?: string;
   title: string;
   details: string;
   date: string;

@@ -1,13 +1,14 @@
-const formattedDate = (): string => {
-  const currentDate : string = new Date().toLocaleString('en-US', { 
-    month: 'short',   // "Feb"
-    day: '2-digit',   // "11"
-    year: 'numeric',  // "2025"
-    hour: '2-digit',  // "1"
-    minute: '2-digit',// "53"
-    hour12: true      // AM/PM format
-  }).replace(',', ''); // Remove extra comma
-  return currentDate;
-}
+const formattedDate = (dateString: string): string => {
+  return new Date(dateString)
+    .toLocaleString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    })
+    .replace(",", "");
+};
 
 export default formattedDate;

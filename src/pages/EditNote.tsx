@@ -9,6 +9,7 @@ import {
   useDeleteNoteMutation,
 } from "@/features/notesApi";
 import AlertDialogSmall from "@/components/AlertDialogSmall";
+import formattedDate from "@/hooks/UseformattedDate";
 import { toast } from "sonner";
 
 const EditNote = () => {
@@ -23,7 +24,7 @@ const EditNote = () => {
           id: data.data._id,
           title: data.data.title,
           details: data.data.details,
-          date: data.data.dateLabel,
+          date: formattedDate(data.data.updatedAt),
         }
       : undefined;
   }, [data]);
