@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { clearUser } from "@/features/authSlice";
 import { useLogoutMutation } from "@/features/authApi";
-import {authApi} from "@/features/authApi";
-import {noteApi} from "@/features/notesApi";
+import { authApi } from "@/features/authApi";
+import { noteApi } from "@/features/notesApi";
 import { useNavigate } from "react-router-dom";
 import AlertDialogSmall from "./AlertDialogSmall";
 import { toast } from "sonner";
@@ -32,12 +32,9 @@ const Logout = () => {
       actionText="Logout"
       handleAction={handleLogout}
       trigger={
-        <Button
-          variant="outline"
-          className="bg-transparent text-white hover:text-white border-amber-50/30 hover:bg-amber-50/5"
-        >
+        <button className="text-center w-full py-3 transition-all duration-100  hover:scale-105 active:shadow-none active:scale-95">
           Log Out
-        </Button>
+        </button>
       }
     />
   );
