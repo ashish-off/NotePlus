@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   // Sync auth state with server response
   useEffect(() => {
     if (isSuccess && data?.user) {
-      dispatch(setUser({ name: data.user.name }));
+      dispatch(setUser(data.user));
     }
     if (isError) {
       dispatch(clearUser());

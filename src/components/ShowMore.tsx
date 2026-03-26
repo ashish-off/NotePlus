@@ -34,6 +34,13 @@ const ShowMore = () => {
                 </Link>
 
                 <div className="border-1 border-neutral-600 w-full"></div>
+                <Link
+                  to={"/profile"}
+                  className=" text-center w-full py-3 transition-all duration-100  hover:scale-105 active:shadow-none active:scale-95"
+                >
+                  Profile
+                </Link>
+                <div className="border-1 border-neutral-600 w-full"></div>
 
                 <AlertDialogSmall
                   title="Delete All Notes?"

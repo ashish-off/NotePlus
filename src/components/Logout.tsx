@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { clearUser } from "@/features/authSlice";
 import { useLogoutMutation } from "@/features/authApi";

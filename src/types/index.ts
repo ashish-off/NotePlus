@@ -33,7 +33,7 @@ export interface User {
 }
 
 export interface AuthState {
-  name: string | null;
+  user: User | null;
 }
 
 export interface LoginCredentials {

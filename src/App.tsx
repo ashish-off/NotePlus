@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 
 const App = () => {
   return (
@@ -35,6 +36,14 @@ const App = () => {
                 <EditNote />
               </ProtectedRoute>
             }
+          />
+          <Route 
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
           />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />

@@ -33,7 +33,7 @@ const Login = () => {
     try {
       const data = await login(values).unwrap();
       console.log("Login response:", data);
-      dispatch(setUser({ name: data.user.name }));
+      dispatch(setUser(data.user));
       toast.success("Login successful");
 
       navigate("/");

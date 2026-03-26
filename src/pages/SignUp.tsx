@@ -33,7 +33,7 @@ const SignUp = () => {
     };
     try {
       const data = await register(values).unwrap();
-      dispatch(setUser({ name: data.user.name }));
+      dispatch(setUser(data.user));
       toast.success("Account created successfully");
       navigate("/");
     } catch (error : any) {
