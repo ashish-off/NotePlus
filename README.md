@@ -1,62 +1,96 @@
+# NotePlus Frontend
 
-# NotePlus
+NotePlus is a modern note-taking frontend built with React, TypeScript, Redux Toolkit, and Vite.
+It connects to the NotePlus backend API for authentication and note management.
 
-A simple and intuitive note-taking application built with React, TypeScript and Redux. This app allows users to create, edit, delete, and search notes efficiently.
- ## [noteplus-ashish.vercel.app](https://noteplus-ashish.vercel.app/)
+Live app: [noteplus-ashish.vercel.app](https://noteplus-ashish.vercel.app/)
 
-## Features
+## Current Features
 
-- **Search Notes**: Users can search for notes by title using the search bar.
-- **Delete All Notes**: Users can delete all notes at once.
-- **Create Note**: Users can create a new note by providing a title and details.
-- **Edit Note**: Users can edit an existing note's title and details.
-- **Delete Note**: Users can delete the current note.
-- **Responsive UI**: The layout adjusts for different screen sizes.
-- **Routing**: Provides routing for the application, including paths for viewing notes, creating a note, and editing a note.
-- **Persistent Storage**: Notes are automatically saved to local storage and persist even after refreshing the page.
+- RTK Query cache invalidation for auth and notes flows.
+- Authentication with login, signup, logout, and protected routes.
+- User profile page to view current user name and email.
+- Create, read, update, and delete notes.
+- Delete all notes in one action.
+- Search notes by title.
+- Last edited timestamp shown from MongoDB `updatedAt`, formatted on the frontend.
+- Responsive UI with Tailwind + shadcn/ui components.
 
+## Tech Stack
 
-## Installation
+- React + TypeScript
+- Vite
+- Redux Toolkit + RTK Query
+- React Router
+- Tailwind CSS v4
+- shadcn/ui + Radix UI
+
+## Project Structure
+
+```text
+src/
+  app/          # Redux store
+  components/   # Reusable UI and feature components
+  features/     # RTK Query APIs + slices
+  pages/        # Route pages
+  hooks/        # Utility hooks/helpers
+  types/        # Shared TypeScript types
+```
+
+## Environment Variables
+
+Create a `.env` file in `Note-app-react/`:
+
+```env
+VITE_API_URL=https://noteplus-backend-lqbd.onrender.com/api
+```
+
+For local backend usage:
+
+```env
+VITE_API_URL=http://localhost:3000/api
+```
+
+## Getting Started
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/ashish-off/NotePlus.git
    ```
-2. Navigate to the project directory:
+
+2. Go to the frontend folder:
+
    ```bash
    cd NotePlus
    ```
+
 3. Install dependencies:
+
    ```bash
    npm install
    ```
-4. Start the development server:
+
+4. Add your `.env` file (see above).
+
+5. Start the dev server:
+
    ```bash
    npm run dev
    ```
 
-## Usage
+## Scripts
 
-- Search Notes: Use the search bar to filter notes by title.
-- Create a Note: Click the "Add Note" button to create a new note.
-- Edit a Note: Click on an existing note to edit its title and details.
-- Delete a Note: Click the delete button to remove a note.
-- Delete All Notes: Use the "Delete All" button to remove all notes at once.
+- `npm run dev` - Run development server
+- `npm run build` - Type-check and build production bundle
 
-## Contributing
+## Notes
 
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License. 
+- This frontend expects backend cookie-based auth (`credentials: include`).
+- User session info is persisted in localStorage for smoother reload behavior.
 
 ## Author
 
 - [Ashish Saud](https://github.com/ashish-off)
-- [LinkedIn](https://www.linkedin.com/in/ashish-saud-55ab57294)  
-- [X (formerly Twitter)](https://x.com/ashish_saud15)
-
-## Ui design
-
-![Image](https://github.com/user-attachments/assets/d2687bee-76bd-4a53-8d3a-bbfef11a2337)
+- [LinkedIn](https://www.linkedin.com/in/ashish-saud-55ab57294)
+- [X (Twitter)](https://x.com/ashish_saud15)
