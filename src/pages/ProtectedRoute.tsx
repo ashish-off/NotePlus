@@ -20,8 +20,12 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen text-white">
-        Loading...
+      <div className="flex min-h-screen flex-col items-center justify-center gap-2 px-4 text-center text-white">
+        <p className="text-lg font-medium">Loading...</p>
+        <p className="max-w-md text-sm text-zinc-300">
+          This can take 20-40 seconds because the backend is hosted on Render
+          free plan and may need a cold start.
+        </p>
       </div>
     );
   }
